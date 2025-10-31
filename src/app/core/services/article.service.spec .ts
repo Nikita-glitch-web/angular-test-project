@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ArticleService, Article } from './article.service';
 import { take } from 'rxjs';
 import { environment } from '../../environments/environment';
+import {describe, afterEach, beforeEach, expect , it, jest} from '@jest/globals';
 
 describe('ArticleService', () => {
   let service: ArticleService;
@@ -147,7 +148,7 @@ describe('ArticleService', () => {
 
   describe('error handling', () => {
     it('should handle malformed API response gracefully', () => {
-      const spy = spyOn(console, 'error');
+      const spy = jest.spyOn(console, 'error');
 
       service.fetchArticles();
       const req = httpMock.expectOne(API_BASE_URL);
@@ -160,7 +161,7 @@ describe('ArticleService', () => {
     });
 
     it('should handle HTTP error responses', () => {
-      const spy = spyOn(console, 'error');
+      const spy = jest.spyOn(console, 'error');
 
       service.fetchArticles();
       const req = httpMock.expectOne(API_BASE_URL);
@@ -174,3 +175,6 @@ describe('ArticleService', () => {
     });
   });
 });
+
+
+
