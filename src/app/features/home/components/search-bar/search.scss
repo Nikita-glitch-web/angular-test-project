@@ -1,0 +1,19 @@
+@use "../../../../../styles/variables" as *;
+
+.search-field {
+  width: 50%;
+  height: 50px;
+}
+
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece {
+  box-shadow: $search-shadow;
+  border-color: rgba(234, 234, 234, 1);
+  border-radius: $card-radius;
+}
+
+.filter-title {
+  font-weight: $fw-bold;
+  font-size: $fs-text;
+}
+
+

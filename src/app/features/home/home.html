@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+</mat-toolbar>
+
+<app-search (searchChange)="onSearchChange($event)"></app-search>
+
+<div class="results-info">
+  <span class="results-text">Results: {{ (articles$ | async)?.length }}</span>
+</div>
+
+<div class="cards-grid">
+  <ng-container *ngIf="articles$ | async as articles; else loading">
+    <app-article-card *ngFor="let article of articles" [article]="article" [filter]="searchTerm">
+    </app-article-card>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <p>Loading articles...</p>
+</ng-template>

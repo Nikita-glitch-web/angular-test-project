@@ -1,0 +1,29 @@
+<section class="details-shell">
+  <div class="container">
+    <mat-card class="article-details-card" role="article" aria-label="Article details">
+      <div *ngIf="isLoading" class="message" aria-live="polite">Loading...</div>
+      <div *ngIf="!isLoading && isError" class="message" aria-live="polite">
+        Something went wrong. Please try again later.
+      </div>
+      <div *ngIf="!isLoading && !isError && isNotFound" class="loading" aria-live="polite">
+        Article not found.
+      </div>
+      <ng-container *ngIf="!isLoading && !isError && article">
+        <div class="image-box" *ngIf="article.image_url">
+          <img [src]="article.image_url" alt="Article header" loading="lazy" />
+        </div>
+
+        <mat-card-header>
+          <mat-card-title class="headline">{{ article.title }}</mat-card-title>
+          <div class="article-content" [innerHTML]="article.summary"></div>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="back-link">
+            <a mat-button routerLink="/home" aria-label="Back to homepage"><b>← Back to homepage</b></a>
+          </div>
+        </mat-card-content>
+      </ng-container>
+    </mat-card>
+  </div>
+</section>
