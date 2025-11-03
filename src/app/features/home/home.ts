@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppMaterialModule } from '../../app-material.module';
-import { ArticleCard } from '../../shared/components/article-card/article-card';
 import { SearchComponent } from './components/search-bar/search';
 import { ArticleList } from '../../shared/components/article-list/article-list';
 
@@ -13,10 +12,9 @@ import { ArticleList } from '../../shared/components/article-list/article-list';
     CommonModule,
     FormsModule,
     AppMaterialModule,
-    ArticleCard,
     SearchComponent,
-    ArticleList,
-  ],
+    ArticleList
+],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
 })

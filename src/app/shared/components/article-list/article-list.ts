@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticlesStore } from '../../../core/articles/articles.store';
 import { Article } from '../../../core/articles/types';
@@ -20,8 +20,6 @@ export class ArticleList implements OnInit {
   isLoading$!: Observable<boolean>;
   hasMore$!: Observable<boolean>;
   error$!: Observable<string | null>;
-  private lastScrollTop = 0;
-
   constructor(private articlesStore: ArticlesStore) {}
 
   ngOnInit(): void {
@@ -32,16 +30,7 @@ export class ArticleList implements OnInit {
     this.error$ = this.articlesStore.getError();
   }
 
-  @HostListener('window:scroll', [])
-  onScroll(): void {
-    const threshold = 300;
-    const position = window.innerHeight + window.scrollY;
-    const height = document.body.offsetHeight;
-    if (window.scrollY > this.lastScrollTop) {
-      if (height - position < threshold) {
-        this.articlesStore.loadNextPage();
-      }
-    }
-    this.lastScrollTop = window.scrollY;
+  loadMore(): void {
+    this.articlesStore.loadNextPage();
   }
 }

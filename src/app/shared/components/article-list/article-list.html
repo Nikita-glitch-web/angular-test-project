@@ -4,9 +4,14 @@
 <div *ngFor="let article of articles$ | async" class="article-card">
   <app-article-card [article]="article" [filter]="filter"></app-article-card>
 </div>
+<div class="controls">
 <div *ngIf="isLoading$ | async" class="loading">
   <app-loader></app-loader>
 </div>
-<div *ngIf="(hasMore$ | async) === false">
-  <p class="end-message">No more articles to load.</p>
+<div class="load-more-wrapper" *ngIf="hasMore$ | async">
+  <button mat-raised-button color="primary" (click)="loadMore()" [disabled]="isLoading$ | async">
+    Load More
+  </button>
 </div>
+</div>
+

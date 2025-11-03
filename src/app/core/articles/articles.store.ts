@@ -11,7 +11,7 @@ export class ArticlesStore {
   private currentPage$ = new BehaviorSubject<number>(1);
   private hasMore$ = new BehaviorSubject<boolean>(true);
 
-  private readonly PAGE_SIZE = 6;
+  private readonly PAGE_SIZE = 30;
 
   constructor(private api: ArticlesService) {
     // @ts-ignore
