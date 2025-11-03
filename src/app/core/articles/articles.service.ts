@@ -11,12 +11,15 @@ export class ArticlesService {
   constructor(private http: HttpClient) {}
 
   fetchArticlesApi(
-    page: number = 1,
-    limit: number = 20
+    page: number,
+    limit: number,
+    offset: number
   ): Observable<ApiResponse> {
     const params = new HttpParams()
+      .set('offset', offset.toString())
       .set('page', page.toString())
       .set('limit', limit.toString());
+
     return this.http.get<ApiResponse>(this.API_URL, { params });
   }
 

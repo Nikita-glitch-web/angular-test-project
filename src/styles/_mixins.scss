@@ -1,14 +1,6 @@
-// _mixins.scss
-// --------------------------------------------------
-// Responsive & Utility Mixins for Angular Projects
-// --------------------------------------------------
-
-// Breakpoints
-$breakpoint-mobile: 480px;
-$breakpoint-tablet: 768px;
+$breakpoint-mobile: 768px;
 $breakpoint-desktop: 1024px;
 
-// Media Query Mixins
 @mixin mobile {
   @media (max-width: #{$breakpoint-mobile}) {
     @content;
@@ -16,31 +8,21 @@ $breakpoint-desktop: 1024px;
 }
 
 @mixin tablet {
-  @media (max-width: #{$breakpoint-tablet}) {
+  @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-desktop}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: #{$breakpoint-desktop}) {
+  @media (min-width: #{$breakpoint-desktop + 1}) {
     @content;
   }
 }
 
-// Fluid Typography
-@mixin fluid-type($min-size, $max-size, $min-vw: 320px, $max-vw: 1200px) {
-  font-size: calc(
-    #{$min-size} + (#{$max-size} - #{$min-size}) * ((100vw - #{$min-vw}) /
-          (#{$max-vw} - #{$min-vw}))
-  );
-}
-
-// Spacing Utilities
 @mixin spacing($property, $value) {
   #{$property}: $value;
 }
 
-// Flex Utilities
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -57,24 +39,33 @@ $breakpoint-desktop: 1024px;
   flex-direction: row;
 }
 
-// Grid Utilities
-@mixin grid($columns: 2, $gap: 16px) {
-  display: grid;
-  grid-template-columns: repeat($columns, 1fr);
+@mixin responsive-grid(
+  $cols-desktop: 3,
+  $cols-tablet: 2,
+  $cols-mobile: 1,
+  $gap: 45px
+) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: $gap;
-}
 
-// Example: Hide on mobile
-@mixin hide-mobile {
-  @include mobile {
-    display: none !important;
+  .article-card {
+    flex: 0 1 calc(100% / #{$cols-desktop} - #{$gap});
+    max-width: calc(100% / #{$cols-desktop} - #{$gap});
   }
-}
 
-// Example: Show only on mobile
-@mixin show-mobile {
-  display: none !important;
+  @include tablet {
+    .article-card {
+      flex: 0 1 calc(100% / #{$cols-tablet} - #{$gap});
+      max-width: calc(100% / #{$cols-tablet} - #{$gap});
+    }
+  }
+
   @include mobile {
-    display: block !important;
+    .article-card {
+      flex: 0 1 calc(100% / #{$cols-mobile} - #{$gap});
+      max-width: calc(100% / #{$cols-mobile} - #{$gap});
+    }
   }
 }

@@ -10,10 +10,13 @@ export class ArticlesStore {
   private error$ = new BehaviorSubject<string | null>(null);
   private currentPage$ = new BehaviorSubject<number>(1);
   private hasMore$ = new BehaviorSubject<boolean>(true);
-  private readonly FIRST_PAGE_SIZE = 6;
-  private readonly PAGE_SIZE = 30;
 
-  constructor(private api: ArticlesService) {}
+  private readonly PAGE_SIZE = 6;
+
+  constructor(private api: ArticlesService) {
+    // @ts-ignore
+    window.store = this;
+  }
 
   fetchArticles(): void {
     this.currentPage$.next(1);
@@ -29,9 +32,9 @@ export class ArticlesStore {
     this.error$.next(null);
 
     const page = this.currentPage$.value;
-    const limit = page === 1 ? this.FIRST_PAGE_SIZE : this.PAGE_SIZE;
-
-    this.api.fetchArticlesApi(page, limit).subscribe({
+    const limit = this.PAGE_SIZE;
+    const offset = this.PAGE_SIZE * (this.currentPage$.value - 1);
+    this.api.fetchArticlesApi(page, limit, offset).subscribe({
       next: (res: ApiResponse) => {
         const newArticles = res.results.map((a) => ({
           id: a.id,
@@ -50,13 +53,7 @@ export class ArticlesStore {
         ];
 
         this.articles$.next(merged);
-
-        if (newArticles.length < limit) {
-          this.hasMore$.next(false);
-        } else {
-          this.currentPage$.next(page + 1);
-        }
-
+        this.currentPage$.next(page + 1);
         this.loading$.next(false);
       },
       error: (err) => {
