@@ -1,11 +1,12 @@
 @use '../../../styles/variables' as *;
 
 
-.cards-grid {
+.article-list {
   display: flex;
-  max-width: 1290px;
   flex-direction: row;
   flex-wrap: wrap;
+  max-width: 1290px;
+  margin: 0 auto;
   justify-content: space-between;
   gap: $space-lg $space-lg;
 }

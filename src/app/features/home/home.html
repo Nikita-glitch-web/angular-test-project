@@ -4,16 +4,7 @@
 <app-search (searchChange)="onSearchChange($event)"></app-search>
 
 <div class="results-info">
-  <span class="results-text">Results: {{ (articles$ | async)?.length }}</span>
+  <span class="results-text">Results: {{ (articleList?.articles$ | async)?.length || 0 }}</span>
 </div>
 
-<div class="cards-grid">
-  <ng-container *ngIf="articles$ | async as articles; else loading">
-    <app-article-card *ngFor="let article of articles" [article]="article" [filter]="searchTerm">
-    </app-article-card>
-  </ng-container>
-</div>
-
-<ng-template #loading>
-  <p>Loading articles...</p>
-</ng-template>
+<app-article-list #articleList class="article-list" [filter]="searchTerm"></app-article-list>

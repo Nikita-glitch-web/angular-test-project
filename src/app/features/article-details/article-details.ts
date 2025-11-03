@@ -2,15 +2,16 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppMaterialModule } from '../../app-material.module';
 import { CommonModule } from '@angular/common';
-import { ArticleService, Article } from '../../core/services/article.service';
+import { ArticlesStore, Article } from '../../core/articles';
 import { take } from 'rxjs/operators';
 import { LoremPipe } from '../../shared/pipes/lorem.pipe';
+import { LoaderComponent } from '../../shared/components/loader/loader';
 
 @Component({
   selector: 'app-news-details',
   templateUrl: './article-details.html',
   styleUrls: ['./article-details.scss'],
-  imports: [AppMaterialModule, CommonModule, LoremPipe],
+  imports: [AppMaterialModule, CommonModule, LoaderComponent, LoremPipe],
 })
 export class ArticleDetails implements OnInit {
   id = signal<number>(0);
@@ -21,7 +22,7 @@ export class ArticleDetails implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private articleService: ArticleService,
+    private articlesStore: ArticlesStore,
     private router: Router
   ) {}
 
@@ -36,7 +37,8 @@ export class ArticleDetails implements OnInit {
     this.isError.set(false);
     this.isNotFound.set(false);
 
-    this.articleService.getArticleById(id)
+    this.articlesStore
+      .getArticleById(id)
       .pipe(take(1))
       .subscribe({
         next: (article) => {

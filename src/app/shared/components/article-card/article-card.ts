@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from '../../../app-material.module';
 import { HighlightPipe } from '../../pipes/highlight.pipe';
 import { TrimPipe } from '../../pipes/trim.pipe';
-import { Article } from '../../../core/services/article.service';
+import { Article } from '../../../core/articles';
 
 @Component({
   selector: 'app-article-card',

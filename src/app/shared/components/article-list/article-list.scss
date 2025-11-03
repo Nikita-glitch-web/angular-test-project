@@ -1,0 +1,15 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
+
+.article-list {
+  @include grid(3, $space-lg);
+
+  @include tablet {
+    @include grid(2, $space-md);
+  }
+
+  @include mobile {
+    @include grid(1, $space-sm);
+    padding: $space-xs;
+  }
+}

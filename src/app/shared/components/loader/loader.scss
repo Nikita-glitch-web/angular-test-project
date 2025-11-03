@@ -1,0 +1,40 @@
+.loader-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.loader-svg {
+  animation: rotate 1.2s linear infinite;
+}
+
+.loader-bg {
+  opacity: 0.2;
+}
+
+.loader-fg {
+  stroke-dasharray: 125;
+  stroke-dashoffset: 100;
+  animation: dash 1.2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 125;
+  }
+  50% {
+    stroke-dashoffset: 30;
+    transform: rotate(45deg);
+  }
+  100% {
+    stroke-dashoffset: 125;
+    transform: rotate(360deg);
+  }
+}

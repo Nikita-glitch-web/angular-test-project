@@ -1,42 +1,43 @@
 <section class="details-shell">
   <div class="container">
-    <mat-card class="article-details-card" role="article" aria-label="Article details">
+    <ng-container *ngIf="isLoading(); else details">
+      <app-loader></app-loader>
+    </ng-container>
+    <ng-template #details>
+      <mat-card class="article-details-card" role="article" aria-label="Article details">
 
-      <!-- Loading -->
-      <div *ngIf="isLoading()" class="message" aria-live="polite">
-        Loading...
-      </div>
-
-      <!-- Error -->
-      <div *ngIf="!isLoading() && isError()" class="message" aria-live="polite">
-        Something went wrong. Please try again later.
-      </div>
-
-      <!-- Not Found -->
-      <div *ngIf="!isLoading() && !isError() && isNotFound()" class="message" aria-live="polite">
-        Article not found.
-      </div>
-
-      <!-- Article Content -->
-      <ng-container *ngIf="!isLoading() && !isError() && article()">
-        <div class="image-box" *ngIf="article()?.image_url">
-          <img [src]="article()?.image_url" alt="Article header" loading="lazy" />
+        <!-- Error -->
+        <div *ngIf="!isLoading() && isError()" class="message" aria-live="polite">
+          Something went wrong. Please try again later.
         </div>
 
-        <mat-card-header>
-          <mat-card-title class="headline">{{ article()?.title }}</mat-card-title>
-          <div class="article-content" [innerHTML]="(article()?.summary || '') | lorem:3"></div>
-        </mat-card-header>
+        <!-- Not Found -->
+        <div *ngIf="!isLoading() && !isError() && isNotFound()" class="message" aria-live="polite">
+          Article not found.
+        </div>
 
-        <mat-card-content>
-          <div class="back-link">
-            <button mat-button color="primary" (click)="goHome()" aria-label="Back to homepage">
-              ← Back to homepage
-            </button>
+        <!-- Article Content -->
+        <ng-container *ngIf="!isLoading() && !isError() && article()">
+          <div class="image-box" *ngIf="article()?.image_url">
+            <img [src]="article()?.image_url" alt="Article header" loading="lazy" />
           </div>
-        </mat-card-content>
-      </ng-container>
 
-    </mat-card>
+          <mat-card-header>
+            <mat-card-title class="headline">{{ article()?.title }}</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="article-content" [innerHTML]="(article()?.summary || '') | lorem:3"></div>
+            <div class="back-link">
+              <button mat-button color="primary" (click)="goHome()" aria-label="Back to homepage">
+                ← Back to homepage
+              </button>
+            </div>
+          </mat-card-content>
+        </ng-container>
+
+        <div *ngIf="!article() && !isLoading()" class="loading">Article not found.</div>
+      </mat-card>
+    </ng-template>
   </div>
 </section>
