@@ -1,16 +1,34 @@
-@use '../../../styles/variables' as *;
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
 
-
-.article-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.home-container {
   max-width: 1290px;
   margin: 0 auto;
-  justify-content: space-between;
-  gap: $space-lg $space-lg;
+
+  @include tablet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-md;
+    text-align: center;
+  }
 }
 
+.article-list {
+  @include responsive-grid(3, 2, 1, $space-md);
+  max-width: 1290px;
+  margin: 0 auto;
+  gap: $space-lg $space-lg;
+}
 
 .results-info {
   margin-top: 60px;
@@ -19,10 +37,7 @@
   padding-bottom: $space-xxs;
 }
 
-
 .results-text {
   font-weight: $fw-bold;
   font-size: $fs-text;
 }
-
-

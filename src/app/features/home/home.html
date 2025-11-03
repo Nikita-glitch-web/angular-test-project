@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
 </mat-toolbar>
 
+<div class="home-container">
 <app-search (searchChange)="onSearchChange($event)"></app-search>
 
 <div class="results-info">
@@ -8,3 +9,5 @@
 </div>
 
 <app-article-list #articleList class="article-list" [filter]="searchTerm"></app-article-list>
+</div>
+

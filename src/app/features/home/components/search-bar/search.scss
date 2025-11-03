@@ -1,14 +1,21 @@
 @use "../../../../../styles/variables" as *;
+@use "../../../../../styles/mixins" as *;
 
 .search-field {
   width: 50%;
   height: 50px;
+  @include tablet{
+    width: 100%;
+  }
+  @include mobile{
+    width: 100%;
+  }
 }
 
 ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece {
   box-shadow: $search-shadow;
-  border-color: rgba(234, 234, 234, 1);
-  border-radius: $card-radius;
+  border-color: rgba(234, 234, 234, 1) !important;
+
 }
 
 .filter-title {
@@ -16,4 +23,11 @@
   font-size: $fs-text;
 }
 
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mat-mdc-notch-piece {
+  border-color: rgba(234, 234, 234, 1) !important;
+}
 
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mat-mdc-notch-piece {
+    border-color: rgba(234, 234, 234, 1) !important;
+
+}
