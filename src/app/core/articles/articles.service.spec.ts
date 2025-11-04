@@ -56,17 +56,17 @@ describe('ArticlesService', () => {
 
   describe('fetchArticlesApi', () => {
     it('returns the API response', () => {
-      service.fetchArticlesApi().subscribe((response) => {
+      service.fetchArticlesApi(1, 10, 0).subscribe((response) => {
         expect(response).toEqual(mockApiResponse);
       });
 
-      const req = httpMock.expectOne(API_BASE_URL);
+      const req = httpMock.expectOne(API_BASE_URL + '?offset=0&page=1&limit=10');
       expect(req.request.method).toBe('GET');
       req.flush(mockApiResponse);
     });
 
     it('propagates HTTP errors', (done) => {
-      service.fetchArticlesApi().subscribe({
+      service.fetchArticlesApi(1, 10, 0).subscribe({
         next: () => done.fail('expected an error'),
         error: (error) => {
           expect(error.status).toBe(500);
@@ -74,7 +74,7 @@ describe('ArticlesService', () => {
         },
       });
 
-      const req = httpMock.expectOne(API_BASE_URL);
+      const req = httpMock.expectOne(API_BASE_URL + '?offset=0&page=1&limit=10');
       expect(req.request.method).toBe('GET');
       req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
     });
