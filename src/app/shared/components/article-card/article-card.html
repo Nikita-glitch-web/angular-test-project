@@ -1,5 +1,7 @@
 <mat-card class="article-card" (click)="openDetail()" role="button" tabindex="0">
-  <img mat-card-image *ngIf="article?.image_url" [src]="article!.image_url" [alt]="article?.title">
+  @if (article?.image_url) {
+  <img mat-card-image [src]="article!.image_url" [alt]="article?.title">
+  }
 
   <mat-card-content>
     <div class="meta">
@@ -7,13 +9,12 @@
       <span class="date">{{ article?.published_at | date:'d MMMM , y' }}</span>
     </div>
 
-   <ng-container *ngIf="article as a">
-    <ng-container *ngIf="(a.title ?? '') | trimText:(a.summary ?? '') as trimmed">
+    @if (article) {
+    <ng-container *ngIf="(article.title ?? '') | trimText:(article.summary ?? '') as trimmed">
       <h3 class="title" [innerHTML]="trimmed.title | highlight: filter"></h3>
       <p class="excerpt" [innerHTML]="trimmed.summary | highlight: filter"></p>
     </ng-container>
-   </ng-container>
-
+    }
 
     <div class="actions">
       <button mat-button color="primary">Read more →</button>

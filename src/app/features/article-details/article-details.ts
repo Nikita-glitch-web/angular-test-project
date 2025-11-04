@@ -8,17 +8,17 @@ import { LoremPipe } from '../../shared/pipes/lorem.pipe';
 import { LoaderComponent } from '../../shared/components/loader/loader';
 
 @Component({
-  selector: 'app-news-details',
+  selector: 'app-article-details',
   templateUrl: './article-details.html',
   styleUrls: ['./article-details.scss'],
   imports: [AppMaterialModule, CommonModule, LoaderComponent, LoremPipe],
 })
 export class ArticleDetails implements OnInit {
-  id = signal<number>(0);
-  article = signal<Article | undefined>(undefined);
-  isLoading = signal(true);
-  isError = signal(false);
-  isNotFound = signal(false);
+  public id = signal<number>(0);
+  public article = signal<Article | undefined>(undefined);
+  public isLoading = signal(true);
+  public isError = signal(false);
+  public isNotFound = signal(false);
 
   constructor(
     private route: ActivatedRoute,

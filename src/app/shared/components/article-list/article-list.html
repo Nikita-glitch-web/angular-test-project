@@ -1,17 +1,26 @@
-<div *ngIf="error$ | async as error" class="error">
-  {{ error }}
+@if (error$()) {
+<div class="error">
+  {{ error$() }}
 </div>
-<div *ngFor="let article of articles$ | async" class="article-card">
+}
+@if (articles$()) {
+@for (article of articles$(); track article.id) {
+<div class="article-card">
   <app-article-card [article]="article" [filter]="filter"></app-article-card>
 </div>
+}
+}
 <div class="controls">
-<div *ngIf="isLoading$ | async" class="loading">
-  <app-loader></app-loader>
+  @if (isLoading$()) {
+  <div class="loading">
+    <app-loader></app-loader>
+  </div>
+  }
+  @if (hasMore$()) {
+  <div class="load-more-wrapper">
+    <button mat-raised-button color="primary" (click)="loadMore()" [disabled]="isLoading$()">
+      Load More
+    </button>
+  </div>
+  }
 </div>
-<div class="load-more-wrapper" *ngIf="hasMore$ | async">
-  <button mat-raised-button color="primary" (click)="loadMore()" [disabled]="isLoading$ | async">
-    Load More
-  </button>
-</div>
-</div>
-
