@@ -2,23 +2,29 @@
 @use "../../../styles/mixins" as *;
 
 .home-container {
-  max-width: 1290px;
+  max-width: 1330px;
   margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: $space-lg;
+
   @include tablet {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     text-align: center;
   }
   @include mobile {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     padding: $space-md;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
   }
+
+
 }
 
 .article-list {
