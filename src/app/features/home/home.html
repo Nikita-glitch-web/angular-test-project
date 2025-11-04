@@ -9,6 +9,5 @@
       Results: {{ articleList?.articles$ && articleList.articles$() ? articleList.articles$().length : 0 }}
     </span>
   </div>
-
   <app-article-list #articleList class="article-list" [filter]="searchTerm"></app-article-list>
 </div>
